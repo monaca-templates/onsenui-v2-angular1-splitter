@@ -1,59 +1,63 @@
 <!DOCTYPE HTML>
 <html>
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-    <meta http-equiv="Content-Security-Policy" content="default-src * data:; style-src * 'unsafe-inline'; script-src * 'unsafe-inline' 'unsafe-eval'">
-    <script src="components/loader.js"></script>
-    <script src="lib/angular/angular.min.js"></script>
-    <script src="lib/onsenui/js/onsenui.min.js"></script>
-    <script src="lib/onsenui/js/angular-onsenui.min.js"></script>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  <meta http-equiv="Content-Security-Policy" content="default-src * data:; style-src * 'unsafe-inline'; script-src * 'unsafe-inline' 'unsafe-eval'">
+  <script src="components/loader.js"></script>
+  <script src="lib/angular/angular.min.js"></script>
+  <script src="lib/onsenui/js/onsenui.min.js"></script>
+  <script src="lib/onsenui/js/angular-onsenui.min.js"></script>
 
-    <link rel="stylesheet" href="components/loader.css">
-    <link rel="stylesheet" href="lib/onsenui/css/onsenui.css">
-    <link rel="stylesheet" href="lib/onsenui/css/onsen-css-components.css">
-    <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="components/loader.css">
+  <link rel="stylesheet" href="lib/onsenui/css/onsenui.css">
+  <link rel="stylesheet" href="lib/onsenui/css/onsen-css-components.css">
+  <link rel="stylesheet" href="css/style.css">
 
-    <script>
-        ons.bootstrap()
-          .controller('AppController', function($scope) {
-            $scope.load = function(page) {
-              $scope.mySplitterContent.load(page)
-            }
-            $scope.open = function() {
-              $scope.mySplitterSide.open();
-            }
-          });
-        ons.ready(function() {
-            console.log("Onsen UI is ready!");
-        });
-    </script>
+  <script>
+    ons.bootstrap()
+      .controller('AppController', function($scope) {
+        this.load = function(page) {
+          $scope.splitter.content.load(page);
+          $scope.splitter.left.close();
+        };
+
+        this.toggle = function() {
+          $scope.splitter.left.toggle();
+        };
+      });
+
+    ons.ready(function() {
+        console.log("Onsen UI is ready!");
+    });
+  </script>
 </head>
-<body ng-controller="AppController as app">
-  <ons-splitter>
-    <ons-splitter-side var="mySplitterSide" side="left" width="220px" collapse swipeable>
+<body>
+
+  <ons-splitter ng-controller="AppController as app" var="splitter">
+    <ons-splitter-side side="left" width="220px" collapse swipeable>
       <ons-page>
         <ons-list>
-          <ons-list-item ng-click="load('home.html')" tappable>
+          <ons-list-item ng-click="app.load('home.html')" tappable>
             Home
           </ons-list-item>
-          <ons-list-item ng-click="load('settings.html')" tappable>
+          <ons-list-item ng-click="app.load('settings.html')" tappable>
             Settings
           </ons-list-item>
-          <ons-list-item ng-click="load('about.html')" tappable>
+          <ons-list-item ng-click="app.load('about.html')" tappable>
             About
           </ons-list-item>
         </ons-list>
       </ons-page>
     </ons-splitter-side>
-    <ons-splitter-content var="mySplitterContent" page="home.html"></ons-splitter-content>
+    <ons-splitter-content page="home.html"></ons-splitter-content>
   </ons-splitter>
 
   <ons-template id="home.html">
     <ons-page>
       <ons-toolbar>
         <div class="left">
-          <ons-toolbar-button ng-click="open()">
+          <ons-toolbar-button ng-click="app.toggle()">
             <ons-icon icon="md-menu"></ons-icon>
           </ons-toolbar-button>
         </div>
@@ -71,7 +75,7 @@
     <ons-page>
       <ons-toolbar>
         <div class="left">
-          <ons-toolbar-button ng-click="open()">
+          <ons-toolbar-button ng-click="app.toggle()">
             <ons-icon icon="md-menu"></ons-icon>
           </ons-toolbar-button>
         </div>
@@ -86,7 +90,7 @@
     <ons-page>
       <ons-toolbar>
         <div class="left">
-          <ons-toolbar-button ng-click="open()">
+          <ons-toolbar-button ng-click="app.toggle()">
             <ons-icon icon="md-menu"></ons-icon>
           </ons-toolbar-button>
         </div>
